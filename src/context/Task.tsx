@@ -8,11 +8,13 @@ type Task = {
 }
 
 export type TaskContextType = {
-  taskList: Task[]
+  taskList: Task[],
+  addTask: (task: Task) => void
 }
 
 const defaultTaskContext = {
-  taskList: []
+  taskList: [],
+  addTask: () => undefined
 }
 
 export const TaskContext = createContext<TaskContextType>(defaultTaskContext);
@@ -33,8 +35,19 @@ export const TaskProvider = ({children}: { children: React.ReactNode }) => {
     }
   ]);
 
+  const addTask = ({name, priority}: Task) => {
+    const newTask = {
+      id: taskList.length + 1,
+      name: name,
+      priority: priority,
+      completed: false
+    }
+    setTaskList([...taskList, newTask])
+  }
+
   const TaskContextValue = {
-    taskList: taskList
+    taskList: taskList,
+    addTask: addTask
   }
 
   return (

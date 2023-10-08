@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
 import AtomInputField from "./atoms/AtomInputField";
+import { useContext } from "react";
+import { TaskContext } from "../context/Task";
 
 const Form = () => {
   const { register, handleSubmit } = useForm();
+  const { addTask } = useContext(TaskContext)
 
   const formSubmit = (data: any) => {
-    console.log(data);
+    addTask(data)
   }
 
   return (
